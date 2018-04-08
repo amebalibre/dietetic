@@ -6,9 +6,9 @@
 		<field name="model">eatable_eatable_rel</field>
 		<field name="arch" type="xml">
 			<tree>
-				<field name="amount"/>
-				<field name="unit_amount"/>
 				<field name="name"/>
+				<field name="amount"/>
+				<field name="measure"/>
 			</tree>
 		</field>
 	</record>
@@ -19,9 +19,9 @@
 		<field name="arch" type="xml">
 			<form>
 				<group col="6">
-					<field name="amount"/>
-					<field name="unit_amount"/>
 					<field name="name" options="{'no_create_edit': true}"/>
+					<field name="amount"/>
+					<field name="measure"/>
 				</group>
 			</form>
 		</field>

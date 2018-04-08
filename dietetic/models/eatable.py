@@ -5,6 +5,15 @@ from odoo import api
 from odoo import fields
 from odoo import models
 
+_MEASURE_TYPE_SELECTION = [
+    ('unit', 'Unit'),
+    ('gr', 'Grams'),
+    ('ml', 'Mililiters'),
+    ('cup', 'Cup'),
+    ('spoon', 'Spoon'),
+    ('tspoon', 'Teaspoonful'),
+]
+
 
 class Eatable(models.Model):
     """eatable."""
@@ -17,25 +26,23 @@ class Eatable(models.Model):
 
     color = fields.Integer()
 
-    price = fields.Float(
-        string='Price',
+    amount = fields.Float(
+        default=0,
+        # required=True,
     )
 
-    computed_price = fields.Float(
-        string='Price',
-        compute='_compute_eatable_ids',
-        store=True,
+    measure = fields.Selection(
+        selection=_MEASURE_TYPE_SELECTION,
+        # required='True',
     )
 
-    description = fields.Text()
+    description = fields.Text(
+        string='Steps'
+    )
 
     category_ids = fields.Many2many(
         comodel_name='category',
     )
-
-    # eatable_ids = fields.Many2many(
-    #     comodel_name='eatable',
-    # )
 
     eatable_ids = fields.One2many(
         string='Ingredients',
@@ -48,11 +55,13 @@ class Eatable(models.Model):
         comodel_name='season',
     )
 
-    # price_ids = fields.One2many(
-    #     comodel_name='price',
-    #     inverse_name='eatable_id',
-    #     # compute='_compute_price',
-    # )
+    # Not stored. Only needed for compute 'season_ids'
+    # field with edition enabled
+    computed_season_ids = fields.Many2many(
+        comodel_name='season',
+        compute='_compute_season_ids',
+        store=False,
+    )
 
     image = fields.Char(
         default='Not found!'
@@ -60,60 +69,63 @@ class Eatable(models.Model):
 
     url = fields.Char()
 
+    _sql_constraints = [
+        ('check_measeure_amount', 'check(amount >= 0)',
+         "The amount can't be less to zero!")
+    ]
+
     @api.depends('eatable_ids')
-    def _compute_eatable_ids(self):
-        if self.eatable_ids and len(self.eatable_ids) > 0:
-            prices = []
-            for eatable_id in self.eatable_ids.mapped('name'):
-                prices.append(eatable_id.price)
+    def _compute_season_ids(self):
+        """Generate the season from the ingredients.
 
-            self.computed_price = sum(prices)
-            self.price = self.computed_price
+        Only adds season from ingredients if this seasons are the same between
+        ingredients.
+        """
+        ids = []
+        for eatable_id in self.eatable_ids.mapped('name'):
+            for season_id in eatable_id.season_ids:
+                ids.append(season_id.id)
 
-        else:
-            self.computed_price = 0
+        if ids:
+            tmp = set([x for x in ids if ids.count(x) > 1])
+            if tmp:
+                ids = tmp
 
-    # @api.model
-    # def create(self, vals):
-    #     if self.computed_price:
-    #         self.price = self.computed_price
-    #
-    #     return super(Eatable, self).create(vals)
-    #
-    # @api.model
-    # def write(self, vals):
-    #     if self.computed_price:
-    #         self.price = self.computed_price
-    #
-    #     return super(Eatable, self).write(vals)
+            self.season_ids = self.env['season'].search([
+                ('id', '=', ids)
+            ])
 
-    # @api.depends('price')
-    # def _compute_price(self):
-    # @api.model
-    # def create(self, vals):
-    #     """create."""
-    #
-    #     eatable_id = super(Eatable, self).create(vals)
-    #
-    #     # self.env['price'].create({
-    #     #     'name': self.price,
-    #     #     'eatable_id': self.id,
-    #     # })
-    #
-    #     # price_ids = self.env['price'].search([
-    #     #     ('eatable_id', '=', eatable_id.id)
-    #     # ])
-    #
-    #     amounts = [
-    #         amount for amount in self.price_ids.mapped('name')
-    #     ].append(eatable_id.price)
-    #
-    #     average = sum(amounts) / len(amounts) if amounts else 0.0
-    #
-    #     raise UserError('%s %s' % (average, amounts))
-    #
-    #     self.write({
-    #         'price': average
-    #     })
-    #
-    #     return eatable_id
+
+class EatableEatableRel(models.Model):
+    """eatable_eatable_rel."""
+
+    _name = 'eatable_eatable_rel'
+
+    name = fields.Many2one(
+        comodel_name='eatable',
+        required='True',
+        ondelete='cascade',
+    )
+
+    eatable_id = fields.Many2one(
+        comodel_name='eatable',
+        required='True',
+        ondelete='cascade',
+        editable=False,
+    )
+
+    amount = fields.Float(
+        default=0,
+        required=True,
+    )
+
+    measure = fields.Selection(
+        selection=_MEASURE_TYPE_SELECTION,
+        related='name.measure',
+        readonly=True,
+    )
+
+    _sql_constraints = [
+        ('check_measeure_measure_rel_amount', 'check(amount >= 0)',
+         "The amount can't be less to zero!")
+    ]
