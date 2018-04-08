@@ -1,9 +1,9 @@
 {
-    'author': "Amebalibre",
-    'website': "http://www.???.es",
     'name': "Dietetic",
     'version': '10.0.0.1',
     'category': 'Test',
+    'author': "Amebalibre",
+    'website': "http://www.???.es",
     'depends': [
         'base',
     ],
