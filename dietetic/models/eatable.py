@@ -74,6 +74,7 @@ class Eatable(models.Model):
          "The amount can't be less to zero!")
     ]
 
+    # TODO(UPGRADE): un-efficiently
     @api.depends('eatable_ids')
     def _compute_season_ids(self):
         """Generate the season from the ingredients.
