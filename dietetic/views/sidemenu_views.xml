@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+<menuitem
+  id="foods"
+  name="Foods"
+  action="action_eatable"
+/>
+
+<!--  Directory -->
+<menuitem
+	id="sidemenu_directory"
+	name="Directory"
+	parent="foods"
+/>
+
+<menuitem
+	id="menu_eatable"
+	name="Eatables"
+	parent="sidemenu_directory"
+	action="action_eatable"
+/>
+
+
+<!-- Data -->
+<menuitem
+	id="sidemenu_data"
+	name="Data"
+	parent="foods"
+/>
+
+<menuitem
+	id="sidemenu_price"
+	name="Price"
+	parent="sidemenu_data"
+	action="action_price"
+/>
+
+<menuitem
+	id="sidemenu_category"
+	name="Category"
+	parent="sidemenu_data"
+	action="action_category"
+/>
+
+<menuitem
+	id="sidemenu_season"
+	name="Season"
+	parent="sidemenu_data"
+	action="action_season"
+/>
+
+</odoo>

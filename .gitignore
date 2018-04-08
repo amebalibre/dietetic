@@ -1,0 +1,5 @@
+**/*.pyc
+TODO.md
+dietetic/static/description/icon.png
+.atom-build.yml
+README.md

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<act_window
+		id="action_price"
+		name="Prices"
+		res_model="price"
+		view_mode="tree,form"
+	/>
+</odoo>

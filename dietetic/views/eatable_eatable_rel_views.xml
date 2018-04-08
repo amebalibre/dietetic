@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="view_tree_eatable_eatable_rel" model="ir.ui.view">
+		<field name="name">Ingredients</field>
+		<field name="model">eatable_eatable_rel</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="amount"/>
+				<field name="unit_amount"/>
+				<field name="name"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_form_eatable_eatable_rel" model="ir.ui.view">
+		<field name="name">Ingredient</field>
+		<field name="model">eatable_eatable_rel</field>
+		<field name="arch" type="xml">
+			<form>
+				<group col="6">
+					<field name="amount"/>
+					<field name="unit_amount"/>
+					<field name="name" options="{'no_create_edit': true}"/>
+				</group>
+			</form>
+		</field>
+	</record>
+
+	<act_window
+		id="action_eatable_eatable_rel"
+		name="Ingredients"
+		res_model="eatable_eatable_rel"
+		view_mode="tree,form"
+		/>
+
+    <record id="action_tree_eatable_eatable_rel" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="action_eatable_eatable_rel"/>
+		<field name="view_id" ref="view_tree_eatable_eatable_rel" />
+    </record>
+
+	<record id="action_form_eatable_eatable_rel" model="ir.actions.act_window.view">
+		<field name="view_mode">form</field>
+		<field name="act_window_id" ref="action_eatable_eatable_rel"/>
+		<field name="view_id" ref="view_form_eatable_eatable_rel" />
+	</record>
+
+
+</odoo>
