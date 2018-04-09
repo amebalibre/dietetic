@@ -22,26 +22,39 @@
 		<field name="model">eatable</field>
 		<field name="arch" type="xml">
 			<form>
-				<h1>
-					<!-- <field name="image"/> -->
-					<field name="name"/>
-					<field
-						name="category_ids"
-						widget="many2many_tags"
-					/>
-				</h1>
-				<group>
-					<field name="eatable_ids"/>
-					<field name="season_ids" widget="many2many_tags"/>
-					<field
-						name="computed_season_ids"
-						widget="many2many_tags"
-						visible="1"/>
-					<field name="amount"/>
-					<field name="measure"/>
-					<field name="url"/>
-					<field name="description"/>
-				</group>
+				<sheet>
+					<h1 name="title">
+						<!-- <field name="image"/> -->
+						<field name="name"/>
+					</h1>
+
+					<group name="top">
+						<field
+							name="category_ids"
+							widget="many2many_tags"
+						/>
+						<field name="season_ids" widget="many2many_tags"/>
+						<field
+							name="computed_season_ids"
+							widget="many2many_tags"
+							invisible="1"/>
+						<field name="type" class="oe_edit_only"/>
+					</group>
+
+					<group name="middle_recipe" attrs="{'invisible': [('type', '=', 'ingredient')]}">
+						<field name="eatable_ids"/>
+					</group>
+					<group name="middle_common">
+						<field name="description"/>
+						<field name="url" widget="url"/>
+					</group>
+
+					<group name="bottom" col="6">
+						<field name="amount"/>
+						<field name="measure"/>
+						<field name="price"/>
+					</group>
+				</sheet>
 			</form>
 		</field>
 	</record>

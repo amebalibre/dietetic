@@ -5,6 +5,11 @@ from odoo import api
 from odoo import fields
 from odoo import models
 
+_EATABLE_TYPE_SELECTION = [
+    ('recipe', 'Recipe'),
+    ('ingredient', 'Ingredient'),
+]
+
 _MEASURE_TYPE_SELECTION = [
     ('unit', 'Unit'),
     ('gr', 'Grams'),
@@ -24,7 +29,15 @@ class Eatable(models.Model):
         required=True,
     )
 
+    type = fields.Selection(
+        selection=_EATABLE_TYPE_SELECTION,
+        default='ingredient',
+        required=True,
+    )
+
     color = fields.Integer()
+
+    price = fields.Float()
 
     amount = fields.Float(
         default=0,
@@ -37,10 +50,11 @@ class Eatable(models.Model):
     )
 
     description = fields.Text(
-        string='Steps'
+        string='Info'
     )
 
     category_ids = fields.Many2many(
+        string='Categories',
         comodel_name='category',
     )
 
