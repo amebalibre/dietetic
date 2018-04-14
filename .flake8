@@ -6,3 +6,4 @@
 [flake8]
 per-file-ignores =
     __init__.py: X100,F401,H306
+    __manifest__.py: D100
