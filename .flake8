@@ -1,5 +1,6 @@
 # flake8 fileconfig
 
+# Doc: http://flake8.pycqa.org/en/latest/user/configuration.html
 # Required: https://github.com/snoack/flake8-per-file-ignores
 
 [flake8]
