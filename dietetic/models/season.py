@@ -8,23 +8,28 @@ class Season(models.Model):
     """Season."""
 
     _name = 'season'
+    _order = 'order'
 
     name = fields.Char(
         string='Season',
         required=True,
+        readonly=True,
     )
 
     order = fields.Integer(
         required=True,
+        readonly=True,
     )
 
     color = fields.Integer(
         default=1,
+        required=True,
         readonly=True,
     )
 
     eatable_ids = fields.Many2many(
         comodel_name='eatable',
+        readonly=True,
     )
 
     _sql_constraints = [

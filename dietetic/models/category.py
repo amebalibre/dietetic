@@ -8,13 +8,23 @@ class Category(models.Model):
     """Category."""
 
     _name = 'category'
+    _order = 'order'
 
     name = fields.Char(
         string='Category',
         required=True,
+        readonly=True,
     )
 
-    color = fields.Integer()
+    order = fields.Integer(
+        required=True,
+        readonly=True,
+    )
+
+    color = fields.Integer(
+        required=True,
+        readonly=True,
+    )
 
     eatable_ids = fields.Many2many(
         comodel_name='eatable',
