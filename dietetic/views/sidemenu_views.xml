@@ -29,12 +29,12 @@
 	parent="foods"
 />
 
-<menuitem
+<!-- <menuitem
 	id="sidemenu_price"
 	name="Price"
 	parent="sidemenu_data"
 	action="action_price"
-/>
+/> -->
 
 <menuitem
 	id="sidemenu_category"
