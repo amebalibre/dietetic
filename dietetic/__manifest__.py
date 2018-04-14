@@ -15,5 +15,6 @@
         'views/season_views.xml',
         'views/sidemenu_views.xml',
     ],
+    'post_init_hook': 'populate_post_init_hook',
     'application': True,
 }
