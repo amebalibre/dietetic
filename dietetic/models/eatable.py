@@ -89,7 +89,10 @@ class Eatable(models.Model):
                 and record.type_id.name in ('Ingredient', 'Ingredient (Demo)')
             )
             if not record.is_ingredient:
-                record.measure_id = (4, 1)  # Grams
+                measure_id = self.env['measure'].search([
+                    ('name', '=', 'Grams')
+                ])
+                record.measure_id = (4, measure_id) if measure_id else False
 
     # TODO(UPGRADE): un-efficiently on: Set season_ids
     @api.depends('eatable_ids')

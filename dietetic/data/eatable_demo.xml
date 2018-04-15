@@ -3,22 +3,21 @@
 	<data noupdate="1">
 
 		<!-- Categories -->
-
 		<record model="category" id="demo_category_vegetables">
 			<field name="name">Vegetables (Demo)</field>
-			<field name="order">2</field>
+			<field name="order">102</field>
 			<field name="color">11</field>
 		</record>
 
 		<record model="category" id="demo_category_fungus">
 			<field name="name">Fungus (Demo)</field>
-			<field name="order">3</field>
+			<field name="order">103</field>
 			<field name="color">11</field>
 		</record>
 
 		<record model="category" id="demo_category_lairy_and_eggs">
 			<field name="name">Lairy / Eggs (Demo)</field>
-			<field name="order">5</field>
+			<field name="order">105</field>
 			<field name="color">11</field>
 		</record>
 
@@ -27,13 +26,13 @@
 		<record model="measure" id="demo_measure_gr">
 			<field name="name">Grams (Demo)</field>
 			<field name="acronym">gr.</field>
-			<field name="order">1</field>
+			<field name="order">101</field>
 		</record>
 
 		<record model="measure" id="demo_measure_unit">
 			<field name="name">Unit (Demo)</field>
 			<field name="acronym">u.</field>
-			<field name="order">2</field>
+			<field name="order">102</field>
 		</record>
 
 
@@ -50,16 +49,22 @@
 			<field name="color">3</field>
 		</record>
 
+		<record model="season" id="demo_season_november">
+			<field name="name">November (Demo)</field>
+			<field name="order">11</field>
+			<field name="color">3</field>
+		</record>
+
 
 		<!-- Types -->
 		<record model="type" id="demo_type_recipe">
 			<field name="name">Recipe (Demo)</field>
-			<field name="order">1</field>
+			<field name="order">101</field>
 		</record>
 
 		<record model="type" id="demo_type_ingredient">
 			<field name="name">Ingredient (Demo)</field>
-			<field name="order">2</field>
+			<field name="order">102</field>
 		</record>
 
 
@@ -72,6 +77,16 @@
 			<field name="measure_id" ref="demo_measure_gr"/>
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus')])]"/>
 			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_shiitake">
+			<field name="name">Shiitake</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">13.27</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus')])]"/>
+			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october'), ref('demo_season_november')])]"/>
 		</record>
 
 		<record model="eatable" id="demo_ingredient_egg">
@@ -101,8 +116,62 @@
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
 		</record>
 
-		<record model="eatable" id="demo_ingredient_tomato">
+		<record model="eatable" id="demo_ingredient_asparagus">
+			<field name="name">Asparagus</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">6.63</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_tendergarlic">
+			<field name="name">Tender Garlic</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">1.1</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_tomatoes">
 			<field name="name">Tomatoes</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">1.1</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_totu">
+			<field name="name">Tofu</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">7.48</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_beans">
+			<field name="name">Beans</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">1.48</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_akamiso">
+			<field name="name">Miso (Akamiso)</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">1.1</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_ricesemolina">
+			<field name="name">Rice Semolina</field>
 			<field name="type_id" ref="demo_type_ingredient"/>
 			<field name="price">1.1</field>
 			<field name="amount">1000</field>
@@ -112,22 +181,22 @@
 
 
 		<!-- Eatables: Recipes -->
-		<record model="eatable" id="demo_recipe_revuelto">
+		<record model="eatable" id="demo_recipe_scrambledeggs">
 			<field name="name">Scrambled Eggs</field>
 			<field name="type_id" ref="demo_type_recipe"/>
 			<field name="amount">152</field>
 			<field name="measure_id" ref="demo_measure_gr"/>
 			<field name="price">0.68</field>
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus'),ref('demo_category_lairy_and_eggs')])]"/>
-			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
+			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'),ref('demo_season_october')])]"/>
 		</record>
 		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_revuelto_01">
-			<field name="eatable_id" ref="demo_recipe_revuelto"/>
+			<field name="eatable_id" ref="demo_recipe_scrambledeggs"/>
 			<field name="name" ref="demo_ingredient_niscalo"/>
 			<field name="amount">50</field>
 		</record>
 		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_revuelto_02">
-			<field name="eatable_id" ref="demo_recipe_revuelto"/>
+			<field name="eatable_id" ref="demo_recipe_scrambledeggs"/>
 			<field name="name" ref="demo_ingredient_egg"/>
 			<field name="amount">2</field>
 		</record>
@@ -160,8 +229,70 @@
 		</record>
 		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_tomatosauce_03">
 			<field name="eatable_id" ref="demo_recipe_tomatosauce"/>
-			<field name="name" ref="demo_ingredient_tomato"/>
+			<field name="name" ref="demo_ingredient_tomatoes"/>
 			<field name="amount">800</field>
+		</record>
+
+		<record model="eatable" id="demo_recipe_misosoup">
+			<field name="name">Miso Soup</field>
+			<field name="description"><![CDATA[
+				<p>Cortar los ajitos tiernos, los espárragos y las setas shiitake
+					en láminas de un grosor al gusto (Por ejemplo, los espárragos
+					de 2cm, los ajitos tiernos unos 50mm y el shiitake de 50mm)</p>
+				<p>Cotar el tofu en pequeños dados de un centímetro apróx.</p>
+				<p>Meter en la olla donde herviremos nuestra sopa los ajitos tiernos
+					los espárragos y el shiitake para sofreirlo un poco, a continuación
+					añadimos agua y las alubias y esperamos que entre en ebullición.
+					A partir de que esté hirviendo contaremos unos 20 minutos.</p>
+				<p>Añadir la sémola de arroz a la olla y dejar 10 minutos.</p>
+				<p>Cuando hayan pasado unos 8 minutos pondremos el Akamiso
+					(Miso rojo) en un pequeño recipiente con un poco del caldo
+					caliente para diluirlo de manera homogénea.</p>
+				<p>Una vez se hayan cumplido los diez minutos desde que añadimos
+					la sémola de arroz, apagaremos el fuego y añadiremos el miso
+					rojo a la olla y lo mezclaremos bien</p>
+			]]></field>
+			<field name="type_id" ref="demo_type_recipe"/>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="price">1.1</field>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus'),ref('demo_category_vegetables')])]"/>
+			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october'), ref('demo_season_november')])]"/>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_mossoup_01">
+			<field name="eatable_id" ref="demo_recipe_misosoup"/>
+			<field name="name" ref="demo_ingredient_shiitake"/>
+			<field name="amount">50</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_mossoup_02">
+			<field name="eatable_id" ref="demo_recipe_misosoup"/>
+			<field name="name" ref="demo_ingredient_asparagus"/>
+			<field name="amount">50</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_mossoup_03">
+			<field name="eatable_id" ref="demo_recipe_misosoup"/>
+			<field name="name" ref="demo_ingredient_tendergarlic"/>
+			<field name="amount">50</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_mossoup_04">
+			<field name="eatable_id" ref="demo_recipe_misosoup"/>
+			<field name="name" ref="demo_ingredient_totu"/>
+			<field name="amount">100</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_mossoup_05">
+			<field name="eatable_id" ref="demo_recipe_misosoup"/>
+			<field name="name" ref="demo_ingredient_beans"/>
+			<field name="amount">50</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_mossoup_06">
+			<field name="eatable_id" ref="demo_recipe_misosoup"/>
+			<field name="name" ref="demo_ingredient_akamiso"/>
+			<field name="amount">14</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_mossoup_07">
+			<field name="eatable_id" ref="demo_recipe_misosoup"/>
+			<field name="name" ref="demo_ingredient_ricesemolina"/>
+			<field name="amount">50</field>
 		</record>
 
 	</data>
