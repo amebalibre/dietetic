@@ -21,6 +21,12 @@ class Eatable(models.Model):
         required=True,
     )
 
+    is_ingredient = fields.Boolean(
+        string='Is Ingredient',
+        compute='_compute_is_ingredient',
+        store=True,
+    )
+
     color = fields.Integer()
 
     price = fields.Float()
@@ -74,6 +80,14 @@ class Eatable(models.Model):
         ('check_measeure_amount', 'check(amount >= 0)',
          "The amount can't be less to zero!")
     ]
+
+    @api.depends('type_id')
+    def _compute_is_ingredient(self):
+        for record in self:
+            record.is_ingredient = (
+                record.type_id
+                and record.type_id.name in ('Ingredient', 'Ingredient (Demo)')
+            )
 
     # TODO(UPGRADE): un-efficiently
     @api.depends('eatable_ids')
