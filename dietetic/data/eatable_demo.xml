@@ -61,7 +61,7 @@
 			<field name="name">Níscalos</field>
 			<field name="type_id" ref="demo_type_ingredient"/>
 			<field name="price">7</field>
-			<field name="amount">50</field>
+			<field name="amount">1000</field>
 			<field name="measure_id" ref="demo_measure_gr"/>
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus')])]"/>
 			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
@@ -81,6 +81,9 @@
 		<record model="eatable" id="demo_eatable_03">
 			<field name="name">Revuelto</field>
 			<field name="type_id" ref="demo_type_recipe"/>
+			<field name="amount">152</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="price">0.68</field>
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus'),ref('demo_category_lairy_and_eggs')])]"/>
 			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
 		</record>
