@@ -3,6 +3,13 @@
 	<data noupdate="1">
 
 		<!-- Categories -->
+
+		<record model="category" id="demo_category_vegetables">
+			<field name="name">Vegetables (Demo)</field>
+			<field name="order">2</field>
+			<field name="color">11</field>
+		</record>
+
 		<record model="category" id="demo_category_fungus">
 			<field name="name">Fungus (Demo)</field>
 			<field name="order">3</field>
@@ -57,7 +64,7 @@
 
 
 		<!-- Eatables: Ingredients -->
-		<record model="eatable" id="demo_eatable_01">
+		<record model="eatable" id="demo_ingredient_niscalo">
 			<field name="name">Níscalos</field>
 			<field name="type_id" ref="demo_type_ingredient"/>
 			<field name="price">7</field>
@@ -67,8 +74,8 @@
 			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
 		</record>
 
-		<record model="eatable" id="demo_eatable_02">
-			<field name="name">Huevo</field>
+		<record model="eatable" id="demo_ingredient_egg">
+			<field name="name">Eggs</field>
 			<field name="type_id" ref="demo_type_ingredient"/>
 			<field name="price">2</field>
 			<field name="amount">12</field>
@@ -76,10 +83,37 @@
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_lairy_and_eggs')])]"/>
 		</record>
 
+		<record model="eatable" id="demo_ingredient_redpepper">
+			<field name="name">Red Peppers</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">1.1</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_onion">
+			<field name="name">Onions</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">1.1</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_ingredient_tomato">
+			<field name="name">Tomatoes</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
+			<field name="price">1.1</field>
+			<field name="amount">1000</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+
 
 		<!-- Eatables: Recipes -->
-		<record model="eatable" id="demo_eatable_03">
-			<field name="name">Revuelto</field>
+		<record model="eatable" id="demo_recipe_revuelto">
+			<field name="name">Scrambled Eggs</field>
 			<field name="type_id" ref="demo_type_recipe"/>
 			<field name="amount">152</field>
 			<field name="measure_id" ref="demo_measure_gr"/>
@@ -87,15 +121,47 @@
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus'),ref('demo_category_lairy_and_eggs')])]"/>
 			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
 		</record>
-		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_01_03">
-			<field name="name" ref="demo_eatable_01"/>
-			<field name="eatable_id" ref="demo_eatable_03"/>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_revuelto_01">
+			<field name="eatable_id" ref="demo_recipe_revuelto"/>
+			<field name="name" ref="demo_ingredient_niscalo"/>
 			<field name="amount">50</field>
 		</record>
-		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_02_03">
-			<field name="name" ref="demo_eatable_02"/>
-			<field name="eatable_id" ref="demo_eatable_03"/>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_revuelto_02">
+			<field name="eatable_id" ref="demo_recipe_revuelto"/>
+			<field name="name" ref="demo_ingredient_egg"/>
 			<field name="amount">2</field>
+		</record>
+
+		<record model="eatable" id="demo_recipe_tomatosauce">
+			<field name="name">Tomato Sauce</field>
+			<field name="description"><![CDATA[
+				<p>Rallar el tomate</p>
+				<p>Pelar la cebolla</p>
+				<p>Cortar pimiento, tomate y cebolla en pequeños trocitos para así
+					conseguir acelerar el proceso de cocinado</p>
+				<p>Añadir a una sartén todos los ingredientes y dejar tapado a
+					fuego lento durante aproximadamente media hora.</p>
+			]]></field>
+			<field name="type_id" ref="demo_type_recipe"/>
+			<field name="amount">1060</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
+			<field name="price">1.1</field>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_vegetables')])]"/>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_tomatosauce_01">
+			<field name="eatable_id" ref="demo_recipe_tomatosauce"/>
+			<field name="name" ref="demo_ingredient_redpepper"/>
+			<field name="amount">150</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_tomatosauce_02">
+			<field name="eatable_id" ref="demo_recipe_tomatosauce"/>
+			<field name="name" ref="demo_ingredient_onion"/>
+			<field name="amount">110</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_tomatosauce_03">
+			<field name="eatable_id" ref="demo_recipe_tomatosauce"/>
+			<field name="name" ref="demo_ingredient_tomato"/>
+			<field name="amount">800</field>
 		</record>
 
 	</data>
