@@ -14,9 +14,6 @@ _MEASURE_TYPE_SELECTION = [
     ('unit', 'Unit'),
     ('gr', 'Grams'),
     ('ml', 'Mililiters'),
-    ('cup', 'Cup'),
-    ('spoon', 'Spoon'),
-    ('tspoon', 'Teaspoonful'),
 ]
 
 
@@ -118,15 +115,15 @@ class EatableEatableRel(models.Model):
 
     name = fields.Many2one(
         comodel_name='eatable',
-        required='True',
         ondelete='cascade',
+        required=True,
     )
 
     eatable_id = fields.Many2one(
         comodel_name='eatable',
-        required='True',
         ondelete='cascade',
-        editable=False,
+        required=True,
+        readonly=True,
     )
 
     amount = fields.Float(
