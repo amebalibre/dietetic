@@ -84,12 +84,12 @@ class Eatable(models.Model):
     @api.depends('type_id')
     def _compute_is_ingredient(self):
         for record in self:
-            record.is_ingredient = (
+            record.is_ingredient = not record.type_id or (
                 record.type_id
                 and record.type_id.name in ('Ingredient', 'Ingredient (Demo)')
             )
 
-    # TODO(UPGRADE): un-efficiently
+    # TODO(UPGRADE): un-efficiently on: Set season_ids
     @api.depends('eatable_ids')
     def _compute_season_ids(self):
         """Generate the season from the ingredients.
@@ -97,6 +97,7 @@ class Eatable(models.Model):
         Only adds season from ingredients if this seasons are the same between
         ingredients.
         """
+        # Set season_ids
         ids = []
         for eatable_id in self.eatable_ids.mapped('name'):
             for season_id in eatable_id.season_ids:
@@ -110,6 +111,12 @@ class Eatable(models.Model):
             self.season_ids = self.env['season'].search([
                 ('id', '=', ids)
             ])
+
+        # Set category_ids
+        for record in self:
+            category_ids = \
+                record.eatable_ids.mapped('name').mapped('category_ids')
+            record.category_ids = category_ids if category_ids else False
 
 
 class EatableEatableRel(models.Model):
