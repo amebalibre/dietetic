@@ -10,12 +10,6 @@ _EATABLE_TYPE_SELECTION = [
     ('ingredient', 'Ingredient'),
 ]
 
-_MEASURE_TYPE_SELECTION = [
-    ('unit', 'Unit'),
-    ('gr', 'Grams'),
-    ('ml', 'Mililiters'),
-]
-
 
 class Eatable(models.Model):
     """eatable."""
@@ -41,8 +35,9 @@ class Eatable(models.Model):
         # required=True,
     )
 
-    measure = fields.Selection(
-        selection=_MEASURE_TYPE_SELECTION,
+    measure_id = fields.Many2one(
+        string='Measure',
+        comodel_name='measure',
         # required='True',
     )
 
@@ -131,9 +126,10 @@ class EatableEatableRel(models.Model):
         required=True,
     )
 
-    measure = fields.Selection(
-        selection=_MEASURE_TYPE_SELECTION,
-        related='name.measure',
+    measure_id = fields.Many2one(
+        string='Measure',
+        comodel_name='measure',
+        related='name.measure_id',
         readonly=True,
     )
 

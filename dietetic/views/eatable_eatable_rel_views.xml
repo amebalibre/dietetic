@@ -8,7 +8,7 @@
 			<tree>
 				<field name="name"/>
 				<field name="amount"/>
-				<field name="measure"/>
+				<field name="measure_id"/>
 			</tree>
 		</field>
 	</record>
@@ -21,7 +21,7 @@
 				<group col="6">
 					<field name="name" options="{'no_create_edit': true}"/>
 					<field name="amount"/>
-					<field name="measure"/>
+					<field name="measure_id"/>
 				</group>
 			</form>
 		</field>

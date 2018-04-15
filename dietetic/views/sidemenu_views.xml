@@ -44,6 +44,14 @@
 />
 
 <menuitem
+	id="sidemenu_measure"
+	name="Measures"
+	parent="sidemenu_data"
+	action="action_measure"
+/>
+
+
+<menuitem
 	id="sidemenu_season"
 	name="Season"
 	parent="sidemenu_data"

@@ -32,6 +32,7 @@ def populate_post_init_hook(cr, registry):
     # Tuples of files without extension. See ./data/hooks/load_data/*
     populate_models = (
         'category',
+        'measure',
         'season',
     )
     _load_data(populate_models, cr)

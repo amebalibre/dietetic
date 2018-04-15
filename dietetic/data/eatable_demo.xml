@@ -16,6 +16,20 @@
 		</record>
 
 
+		<!-- Mesures -->
+		<record model="measure" id="demo_measure_gr">
+			<field name="name">Grams (Demo)</field>
+			<field name="acronym">gr.</field>
+			<field name="order">1</field>
+		</record>
+
+		<record model="measure" id="demo_measure_unit">
+			<field name="name">Unit (Demo)</field>
+			<field name="acronym">u.</field>
+			<field name="order">2</field>
+		</record>
+
+
 		<!-- Seasons -->
 		<record model="season" id="demo_season_september">
 			<field name="name">September (Demo)</field>
@@ -36,7 +50,7 @@
 			<field name="type">ingredient</field>
 			<field name="price">7</field>
 			<field name="amount">50</field>
-			<field name="measure">gr</field>
+			<field name="measure_id" ref="demo_measure_gr"/>
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus')])]"/>
 			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
 		</record>
@@ -46,7 +60,7 @@
 			<field name="type">ingredient</field>
 			<field name="price">2</field>
 			<field name="amount">12</field>
-			<field name="measure">unit</field>
+			<field name="measure_id" ref="demo_measure_unit"/>
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_lairy_and_eggs')])]"/>
 		</record>
 
