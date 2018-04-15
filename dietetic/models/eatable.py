@@ -10,15 +10,24 @@ class Eatable(models.Model):
     """eatable."""
 
     _name = 'eatable'
+    _order = 'is_ingredient, name'
 
     name = fields.Char(
         required=True,
     )
 
-    type_id = fields.Many2one(
-        string='Type',
-        comodel_name='type',
-        required=True,
+    amount = fields.Float(
+        default=0,
+    )
+
+    color = fields.Integer()
+
+    description = fields.Html(
+        string='Info'
+    )
+
+    image = fields.Char(
+        default='Not found!'
     )
 
     is_ingredient = fields.Boolean(
@@ -27,14 +36,9 @@ class Eatable(models.Model):
         store=True,
     )
 
-    color = fields.Integer()
-
     price = fields.Float()
 
-    amount = fields.Float(
-        default=0,
-        # required=True,
-    )
+    url = fields.Char()
 
     measure_id = fields.Many2one(
         string='Measure',
@@ -42,13 +46,23 @@ class Eatable(models.Model):
         # required='True',
     )
 
-    description = fields.Text(
-        string='Info'
+    type_id = fields.Many2one(
+        string='Type',
+        comodel_name='type',
+        required=True,
     )
 
     category_ids = fields.Many2many(
         string='Categories',
         comodel_name='category',
+    )
+
+    # Not stored. Only needed for compute 'season_ids'
+    # field with edition enabled
+    computed_season_ids = fields.Many2many(
+        comodel_name='season',
+        compute='_compute_season_ids',
+        store=False,
     )
 
     eatable_ids = fields.One2many(
@@ -62,20 +76,6 @@ class Eatable(models.Model):
         comodel_name='season',
     )
 
-    # Not stored. Only needed for compute 'season_ids'
-    # field with edition enabled
-    computed_season_ids = fields.Many2many(
-        comodel_name='season',
-        compute='_compute_season_ids',
-        store=False,
-    )
-
-    image = fields.Char(
-        default='Not found!'
-    )
-
-    url = fields.Char()
-
     _sql_constraints = [
         ('check_measeure_amount', 'check(amount >= 0)',
          "The amount can't be less to zero!")
@@ -88,6 +88,8 @@ class Eatable(models.Model):
                 record.type_id
                 and record.type_id.name in ('Ingredient', 'Ingredient (Demo)')
             )
+            if not record.is_ingredient:
+                record.measure_id = (4, 1)  # Grams
 
     # TODO(UPGRADE): un-efficiently on: Set season_ids
     @api.depends('eatable_ids')
@@ -102,21 +104,26 @@ class Eatable(models.Model):
         for eatable_id in self.eatable_ids.mapped('name'):
             for season_id in eatable_id.season_ids:
                 ids.append(season_id.id)
-
         if ids:
             tmp = set([x for x in ids if ids.count(x) > 1])
             if tmp:
                 ids = tmp
-
             self.season_ids = self.env['season'].search([
                 ('id', '=', ids)
             ])
+        else:
+            self.season_ids = False
 
         # Set category_ids
         for record in self:
             category_ids = \
                 record.eatable_ids.mapped('name').mapped('category_ids')
             record.category_ids = category_ids if category_ids else False
+
+        # Set price_ids
+        for record in self:
+            price_ids = record.eatable_ids.mapped('price')
+            record.price = sum(price_ids) if price_ids else False
 
 
 class EatableEatableRel(models.Model):
@@ -142,6 +149,13 @@ class EatableEatableRel(models.Model):
         required=True,
     )
 
+    price = fields.Float(
+        readonly=True,
+        compute='_compute_price',
+        store=True,
+        help='Price of amount of the product',
+    )
+
     measure_id = fields.Many2one(
         string='Measure',
         comodel_name='measure',
@@ -153,3 +167,10 @@ class EatableEatableRel(models.Model):
         ('check_measeure_measure_rel_amount', 'check(amount >= 0)',
          "The amount can't be less to zero!")
     ]
+
+    @api.depends('amount')
+    def _compute_price(self):
+        for record in self:
+            if record.name.amount:
+                record.price = \
+                    (record.name.price / record.name.amount) * record.amount

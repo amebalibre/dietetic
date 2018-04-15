@@ -8,9 +8,11 @@
 			<tree>
 				<field name="name"/>
 				<field name="type_id"/>
-				<!-- <field name="price"/> -->
-				<field name="category_ids" widget="many2many_tags"/>
+				<field name="amount"/>
+				<field name="measure_id"/>
+				<field name="price"/>
 				<field name="season_ids" widget="many2many_tags"/>
+				<field name="category_ids" widget="many2many_tags"/>
 				<!-- <field name="image"/> -->
 			</tree>
 		</field>
