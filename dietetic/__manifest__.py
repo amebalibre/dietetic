@@ -8,6 +8,7 @@
         'base',
     ],
     'data': [
+        'data/eatable_demo.xml',
         'views/category_views.xml',
         'views/eatable_views.xml',
         'views/eatable_eatable_rel_views.xml',

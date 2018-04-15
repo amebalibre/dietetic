@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<odoo>
+	<data noupdate="1">
+
+		<!-- Categories -->
+		<record model="category" id="demo_category_fungus">
+			<field name="name">Fungus (Demo)</field>
+			<field name="order">3</field>
+			<field name="color">11</field>
+		</record>
+
+		<record model="category" id="demo_category_lairy_and_eggs">
+			<field name="name">Lairy / Eggs (Demo)</field>
+			<field name="order">5</field>
+			<field name="color">11</field>
+		</record>
+
+
+		<!-- Seasons -->
+		<record model="season" id="demo_season_september">
+			<field name="name">September (Demo)</field>
+			<field name="order">9</field>
+			<field name="color">3</field>
+		</record>
+
+		<record model="season" id="demo_season_october">
+			<field name="name">October (Demo)</field>
+			<field name="order">10</field>
+			<field name="color">3</field>
+		</record>
+
+
+		<!-- Eatables: Ingredients -->
+		<record model="eatable" id="demo_eatable_01">
+			<field name="name">Níscalos</field>
+			<field name="type">ingredient</field>
+			<field name="price">7</field>
+			<field name="amount">50</field>
+			<field name="measure">gr</field>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus')])]"/>
+			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
+		</record>
+
+		<record model="eatable" id="demo_eatable_02">
+			<field name="name">Huevo</field>
+			<field name="type">ingredient</field>
+			<field name="price">2</field>
+			<field name="amount">12</field>
+			<field name="measure">unit</field>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_lairy_and_eggs')])]"/>
+		</record>
+
+
+		<!-- Eatables: Recipes -->
+		<record model="eatable" id="demo_eatable_03">
+			<field name="name">Revuelto</field>
+			<field name="type">recipe</field>
+			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus'),ref('demo_category_lairy_and_eggs')])]"/>
+			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_01_03">
+			<field name="name" ref="demo_eatable_01"/>
+			<field name="eatable_id" ref="demo_eatable_03"/>
+			<field name="amount">50</field>
+		</record>
+		<record model="eatable_eatable_rel" id="demo_eatable_eatable_rel_02_03">
+			<field name="name" ref="demo_eatable_02"/>
+			<field name="eatable_id" ref="demo_eatable_03"/>
+			<field name="amount">2</field>
+		</record>
+
+	</data>
+</odoo>
