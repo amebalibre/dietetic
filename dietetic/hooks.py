@@ -34,5 +34,6 @@ def populate_post_init_hook(cr, registry):
         'category',
         'measure',
         'season',
+        'type',
     )
     _load_data(populate_models, cr)

@@ -5,11 +5,6 @@ from odoo import api
 from odoo import fields
 from odoo import models
 
-_EATABLE_TYPE_SELECTION = [
-    ('recipe', 'Recipe'),
-    ('ingredient', 'Ingredient'),
-]
-
 
 class Eatable(models.Model):
     """eatable."""
@@ -20,9 +15,9 @@ class Eatable(models.Model):
         required=True,
     )
 
-    type = fields.Selection(
-        selection=_EATABLE_TYPE_SELECTION,
-        default='ingredient',
+    type_id = fields.Many2one(
+        string='Type',
+        comodel_name='type',
         required=True,
     )
 

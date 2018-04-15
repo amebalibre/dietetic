@@ -44,10 +44,22 @@
 		</record>
 
 
+		<!-- Types -->
+		<record model="type" id="demo_type_recipe">
+			<field name="name">Recipe (Demo)</field>
+			<field name="order">1</field>
+		</record>
+
+		<record model="type" id="demo_type_ingredient">
+			<field name="name">Ingredient (Demo)</field>
+			<field name="order">2</field>
+		</record>
+
+
 		<!-- Eatables: Ingredients -->
 		<record model="eatable" id="demo_eatable_01">
 			<field name="name">Níscalos</field>
-			<field name="type">ingredient</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
 			<field name="price">7</field>
 			<field name="amount">50</field>
 			<field name="measure_id" ref="demo_measure_gr"/>
@@ -57,7 +69,7 @@
 
 		<record model="eatable" id="demo_eatable_02">
 			<field name="name">Huevo</field>
-			<field name="type">ingredient</field>
+			<field name="type_id" ref="demo_type_ingredient"/>
 			<field name="price">2</field>
 			<field name="amount">12</field>
 			<field name="measure_id" ref="demo_measure_unit"/>
@@ -68,7 +80,7 @@
 		<!-- Eatables: Recipes -->
 		<record model="eatable" id="demo_eatable_03">
 			<field name="name">Revuelto</field>
-			<field name="type">recipe</field>
+			<field name="type_id" ref="demo_type_recipe"/>
 			<field name="category_ids" eval="[(6, 0, [ref('demo_category_fungus'),ref('demo_category_lairy_and_eggs')])]"/>
 			<field name="season_ids" eval="[(6, 0, [ref('demo_season_september'), ref('demo_season_october')])]"/>
 		</record>
