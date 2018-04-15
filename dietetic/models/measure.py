@@ -13,17 +13,14 @@ class Measure(models.Model):
     name = fields.Char(
         string='Measure',
         required=True,
-        readonly=True,
     )
 
     acronym = fields.Char(
         string='Acronym',
-        readonly=True,
     )
 
     order = fields.Integer(
         required=True,
-        readonly=True,
     )
 
     eatable_ids = fields.Many2many(

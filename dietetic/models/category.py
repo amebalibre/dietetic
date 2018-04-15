@@ -13,17 +13,14 @@ class Category(models.Model):
     name = fields.Char(
         string='Category',
         required=True,
-        readonly=True,
     )
 
     order = fields.Integer(
         required=True,
-        readonly=True,
     )
 
     color = fields.Integer(
         required=True,
-        readonly=True,
     )
 
     eatable_ids = fields.Many2many(
